@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>To-Do List</h1>
+
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Enter Task">
+
+            <select id="category">
+                <option value="Work">Work</option>
+                <option value="Study">Study</option>
+                <option value="Personal">Personal</option>
+            </select>
+
+            <button id="addBtn">Add Task</button>
+        </div>
+
+        <div class="filters">
+            <button onclick="filterTasks('all')">All</button>
+            <button onclick="filterTasks('completed')">Completed</button>
+            <button onclick="filterTasks('pending')">Pending</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+</body>
+<script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    const taskInput = document.getElementById("taskInput");
+    const category = document.getElementById("category");
+    const taskList = document.getElementById("taskList");
+
+    function saveData() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function showTasks(type = "all") {
+        taskList.innerHTML = "";
+
+        let data = tasks;
+
+        if (type === "completed") {
+            data = tasks.filter(task => task.completed);
+        } else if (type === "pending") {
+            data = tasks.filter(task => !task.completed);
+        }
+
+        data.forEach((task, index) => {
+            const li = document.createElement("li");
+
+            if (task.completed) {
+                li.classList.add("completed");
+            }
+
+            li.innerHTML = `
+                <div class="task-info">
+                    <input
+                        type="checkbox"
+                        ${task.completed ? "checked" : ""}
+                        onchange="toggleTask(${index})"
+                    >
+
+                    <span>${task.name}</span>
+
+                    <span class="category">${task.category}</span>
+                </div>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteTask(${index})"
+                >
+                    Delete
+                </button>
+            `;
+
+            taskList.appendChild(li);
+        });
+    }
+
+    function addTask() {
+        let taskName = taskInput.value.trim();
+
+        if (taskName === "") {
+            alert("Please enter a task");
+            return;
+        }
+
+        tasks.push({
+            name: taskName,
+            category: category.value,
+            completed: false
+        });
+
+        saveData();
+        showTasks();
+
+        taskInput.value = "";
+    }
+
+    function toggleTask(index) {
+        tasks[index].completed = !tasks[index].completed;
+
+        saveData();
+        showTasks();
+    }
+
+    function deleteTask(index) {
+        tasks.splice(index, 1);
+
+        saveData();
+        showTasks();
+    }
+
+    function filterTasks(type) {
+        showTasks(type);
+    }
+
+    document
+        .getElementById("addBtn")
+        .addEventListener("click", addTask);
+
+    showTasks();
+</script>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f4f4;
+            transition: 0.3s;
+        }
+
+        .container {
+            width: 350px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .color-preview {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 5px solid #eee;
+            background: #2699FB;
+        }
+
+        input[type="color"] {
+            width: 100px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            background: none;
+        }
+
+        .color-code {
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            background: #2699FB;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .message {
+            margin-top: 15px;
+            color: green;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Color Picker</h1>
+
+        <div class="color-preview" id="preview"></div>
+
+        <input type="color" id="colorPicker" value="#2699fb">
+
+        <div class="color-code" id="colorCode">
+            #2699FB
+        </div>
+
+        <button onclick="copyColor()">
+            Copy Color Code
+        </button>
+
+        <p class="message" id="message"></p>
+
+    </div>
+
+    <script>
+
+        const colorPicker = document.getElementById("colorPicker");
+        const preview = document.getElementById("preview");
+        const colorCode = document.getElementById("colorCode");
+        const message = document.getElementById("message");
+
+        colorPicker.addEventListener("input", function () {
+
+            const color = this.value;
+
+            preview.style.backgroundColor = color;
+            document.body.style.backgroundColor = color;
+
+            colorCode.innerText = color.toUpperCase();
+
+            message.innerText = "";
+        });
+
+        function copyColor() {
+
+            navigator.clipboard.writeText(colorCode.innerText);
+
+            message.innerText = "Color code copy";
+        }
+
+    </script>
+
+</body>
+
+</html>

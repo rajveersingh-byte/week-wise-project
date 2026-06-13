@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Discovery App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo">
+            MovieHub
+        </div>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search movies..."
+        >
+    </header>
+
+    <section class="hero">
+        <div class="overlay">
+            <h1>Unlimited Movies & Entertainment</h1>
+            <p>
+                Discover trending movies from around the world.
+            </p>
+
+            <button id="exploreBtn">
+                Explore Now
+            </button>
+        </div>
+    </section>
+
+    <main>
+
+        <h2 class="section-title">
+            Popular Movies
+        </h2>
+
+        <div id="moviesContainer" class="movies-grid">
+
+        </div>
+
+    </main>
+
+    <script type="module" src="main.js"></script>
+
+</body>
+</html>
