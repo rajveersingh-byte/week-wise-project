@@ -823,7 +823,7 @@ header>.row {
 
 
 .faq-item {
-    width: 770px;
+    max-width: 770px;
     background: #fff;
     border-radius: 10px;
     margin-bottom: ;
@@ -916,4 +916,10 @@ footer>hr{
 footer span a{
     color: white;
     border-bottom: 1px solid white;
+}
+
+.lower-footer{
+    max-width: 100%;
+    height: 65px;
+    display: none;
 }
